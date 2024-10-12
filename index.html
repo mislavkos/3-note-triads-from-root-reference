@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3-Note Triads - Root Reference</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 20px;
+        }
+        .flashcard {
+            border: 1px solid #ddd;
+            padding: 20px;
+            width: 300px;
+            height: 150px; /* Fixed height for consistent size */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            cursor: pointer;
+            margin: 20px auto;
+        }
+        .flashcard p {
+            font-size: 1.2em;
+            margin: 5px;
+        }
+        .answer {
+            white-space: pre;
+            font-family: monospace; /* Monospace font for tab */
+            display: none; /* Hidden until revealed */
+        }
+    </style>
+</head>
+<body>
+
+    <h1>3-Note Triads - Root Reference</h1>
+    <div class="flashcard" onclick="handleClick()">
+        <p id="stringSet">Press the area to begin!</p>
+        <p id="chordShape"></p>
+        <div id="answer" class="answer"></div>
+    </div>
+
+    <script>
+        const chords = [
+            { "stringSet": "GBE", "chordShape": "E", "tab": "e|---|---|-R-|---|---|---|\nB|---|---|-5-|---|---|---|\nG|---|---|---|-3-|---|---|\nD|---|---|---|---|---|---|\nA|---|---|---|---|---|---|\nE|---|---|-R-|---|---|---|" },
+            { "stringSet": "GBE", "chordShape": "C/D", "tab": "e|---|---|-3-|---|---|---|\nB|---|---|---|-R-|---|---|\nG|---|---|-5-|---|---|---|\nD|---|---|---|---|---|---|\nA|---|---|---|---|---|-R-|\nE|---|---|---|---|---|---|" },
+            { "stringSet": "GBE", "chordShape": "G/A", "tab": "e|---|---|-5-|---|---|---|\nB|---|---|---|---|-3-|---|\nG|---|---|---|---|-R-|---|\nD|---|---|---|---|---|---|\nA|---|---|-R-|---|---|---|\nE|---|---|---|---|---|---|" },
+            { "stringSet": "DGB", "chordShape": "E", "tab": "e|---|---|---|---|---|---|\nB|---|---|-5-|---|---|---|\nG|---|---|---|-3-|---|---|\nD|---|---|---|---|-R-|---|\nA|---|---|---|---|---|---|\nE|---|---|-R-|---|---|---|" },
+            { "stringSet": "DGB", "chordShape": "C/D", "tab": "e|---|---|---|---|---|---|\nB|---|---|---|-R-|---|---|\nG|---|---|-5-|---|---|---|\nD|---|---|---|---|-3-|---|\nA|---|---|---|---|---|-R-|\nE|---|---|---|---|---|---|" },
+            { "stringSet": "DGB", "chordShape": "G/A", "tab": "e|---|---|---|---|---|---|\nB|---|---|-3-|---|---|---|\nG|---|---|-R-|---|---|---|\nD|---|---|-5-|---|---|---|\nA|-R-|---|---|---|---|---|\nE|---|---|---|---|-R-|---|" },
+            { "stringSet": "ADG", "chordShape": "E", "tab": "e|---|---|---|---|---|---|\nB|---|---|---|---|---|---|\nG|---|---|-3-|---|---|---|\nD|---|---|---|-R-|---|---|\nA|---|---|---|-5-|---|---|\nE|---|-R-|---|---|---|---|" },
+            { "stringSet": "ADG", "chordShape": "C/D", "tab": "e|---|---|---|---|---|---|\nB|---|---|---|---|---|---|\nG|---|---|-5-|---|---|---|\nD|---|---|---|---|-3-|---|\nA|---|---|---|---|---|-R-|\nE|---|---|---|---|---|---|" },
+            { "stringSet": "ADG", "chordShape": "G/A", "tab": "e|---|---|---|---|---|---|\nB|---|---|---|---|---|---|\nG|---|---|-R-|---|---|---|\nD|---|---|-5-|---|---|---|\nA|-R-|---|---|---|-3-|---|\nE|---|---|---|---|---|-R-|" },
+            { "stringSet": "EAD", "chordShape": "E", "tab": "e|---|---|---|---|---|---|\nB|---|---|---|---|---|---|\nG|---|---|---|---|---|---|\nD|---|---|-R-|---|---|---|\nA|---|---|-5-|---|---|---|\nE|-R-|---|---|---|-3-|---|" },
+            { "stringSet": "EAD", "chordShape": "C/D", "tab": "e|---|---|---|---|---|---|\nB|---|---|---|---|---|---|\nG|---|---|---|---|---|---|\nD|---|---|-3-|---|---|---|\nA|---|---|---|-R-|---|---|\nE|---|---|---|-5-|---|---|" },
+            { "stringSet": "EAD", "chordShape": "G/A", "tab": "e|---|---|---|---|---|---|\nB|---|---|---|---|---|---|\nG|---|---|---|---|---|---|\nD|---|---|-5-|---|---|---|\nA|---|---|---|---|-3-|---|\nE|---|---|---|---|---|-R-|" }
+        ];
+
+        let showingAnswer = false;
+        let currentChord;
+
+        function nextFlashcard() {
+            // Select a random chord from the array
+            currentChord = chords[Math.floor(Math.random() * chords.length)];
+
+            // Update the prompt with separate lines for String Set and Chord Shape
+            document.getElementById("stringSet").textContent = `String Set: ${currentChord.stringSet}`;
+            document.getElementById("chordShape").textContent = `Chord Shape: ${currentChord.chordShape}`;
+
+            // Hide the answer
+            document.getElementById("answer").style.display = "none";
+            showingAnswer = false;
+        }
+
+        function handleClick() {
+            if (showingAnswer) {
+                nextFlashcard();
+            } else {
+                revealAnswer();
+            }
+        }
+
+        function revealAnswer() {
+            // Show the tab answer
+            document.getElementById("answer").textContent = currentChord.tab;
+            document.getElementById("answer").style.display = "block";
+            showingAnswer = true;
+        }
+
+        // Load the first flashcard when the page loads
+        window.onload = nextFlashcard;
+    </script>
+
+</body>
+</html>
